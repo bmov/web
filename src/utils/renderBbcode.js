@@ -61,21 +61,32 @@ const isAllowedUrl = (value, schemes) => {
   return schemes.some((scheme) => decoded.startsWith(`${scheme}:`));
 };
 
+const prerender = (input) => {
+  return input.replace(/\[post=(.*?)\](.*?)\[\/post\]/gi, '<a href="wnotepad://posts/$1">$2</a>');
+}
+
 export const renderBbcode = (source) => {
-  const html = bbobHTML(source, presetHTML5());
+  const html = bbobHTML(prerender(source), presetHTML5());
 
   return sanitizeHtml(html, {
     allowedTags,
     allowedAttributes,
     allowedStyles,
-    allowedSchemes: ['http', 'https', 'mailto'],
+    allowedSchemes: ['http', 'https', 'mailto', 'wnotepad'],
     allowedSchemesByTag: {
       img: ['http', 'https'],
     },
     transformTags: {
       a: (tagName, attribs) => {
-        if (!attribs.href || !isAllowedUrl(attribs.href, ['http', 'https', 'mailto'])) {
+        if (!attribs.href || !isAllowedUrl(attribs.href, ['http', 'https', 'mailto', 'wnotepad'])) {
           return { tagName: 'span', attribs: {} };
+        }
+
+        if (attribs.href.startsWith('wnotepad://')) {
+          return { tagName, attribs: {
+              href: attribs.href.replaceAll('wnotepad://', '/'),
+            }
+          };
         }
 
         const nextAttribs = {
