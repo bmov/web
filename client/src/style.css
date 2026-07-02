@@ -1,0 +1,98 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5em;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 6px 12px;
+}
+
+header {
+  border-bottom: 1px solid #ddd;
+  padding: 6px 0;
+}
+
+nav,
+form,
+li,
+section > div {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+form {
+  flex-direction: column;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+input,
+textarea,
+button,
+a {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+textarea {
+  resize: none;
+  font-family: monospace;
+  overflow: hidden;
+}
+
+button.clear {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+button.clear:hover {
+  background-color: #eee;
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 8px;
+  flex-wrap: nowrap;
+}
+
+pre,
+article {
+  border: 1px solid #ddd;
+  padding: 12px;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

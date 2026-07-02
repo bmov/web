@@ -1,0 +1,2 @@
+ALTER TABLE posts
+  ADD COLUMN content_html MEDIUMTEXT NOT NULL AFTER content;
