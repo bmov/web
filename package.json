@@ -18,7 +18,7 @@
     "jwt"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "packageManager": "pnpm@10.31.0",
   "dependencies": {
     "@bbob/html": "^4.3.1",
