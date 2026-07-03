@@ -28,8 +28,20 @@ defineEmits(['submit']);
 function resizeTextarea() {
   if (!textarea.value) return;
 
+  const oldHeight = textarea.value.getBoundingClientRect().height;
+  const scrollTop = window.scrollY;
+
   textarea.value.style.height = 'auto';
   textarea.value.style.height = `${textarea.value.scrollHeight}px`;
+
+  const newHeight = textarea.value.getBoundingClientRect().height;
+  const heightDiff = newHeight - oldHeight;
+
+  if (heightDiff > 0) {
+    window.scrollTo(window.scrollX, scrollTop + heightDiff);
+  } else {
+    window.scrollTo(window.scrollX, scrollTop);
+  }
 }
 
 watch(
