@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import { pool } from '../config/db.js';
 import { env } from '../config/env.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = Router();
 
@@ -43,7 +44,7 @@ const toAuthResponse = (user) => {
   };
 };
 
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', requireAuth, async (req, res, next) => {
   try {
     if (!env.signupEnabled) {
       return res.status(403).json({ message: 'Signup is disabled.' });
