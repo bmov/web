@@ -161,3 +161,44 @@ Pinned posts are displayed at the top of the post list.
   "message": "Hello, I want to discuss a project."
 }
 ```
+
+### Upload Image (Admin Only)
+
+> Restricted to the administrator.
+
+`POST /api/images/upload`
+
+Use `multipart/form-data` and pass the image file in the `image` field.
+
+Supported formats: `jpg`, `jpeg`, `png`, `gif`, `webp`  
+Max file size: `10MB`
+
+```bash
+curl -X POST http://127.0.0.1:3000/api/images/upload \
+  -H "Authorization: Bearer <token>" \
+  -F "image=@/path/to/cover.webp"
+```
+
+Example response:
+
+```json
+{
+  "image": {
+    "year": "2026",
+    "month": "07",
+    "filename": "cover-1751816820000-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.webp",
+    "originalName": "cover.webp",
+    "mimeType": "image/webp",
+    "size": 123456,
+    "url": "/api/images/2026/07/cover-1751816820000-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.webp"
+  }
+}
+```
+
+### Serve Uploaded Image
+
+`GET /api/images/:year/:month/:filename`
+
+```bash
+GET /api/images/2026/07/cover-1751816820000-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.webp
+```
