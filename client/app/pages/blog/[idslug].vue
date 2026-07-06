@@ -70,8 +70,7 @@ onMounted(() => {
   display: flex;
   align-items: flex-end;
   background-image:
-    linear-gradient(180deg, rgba(23, 21, 18, 0.1) 0%, rgba(23, 21, 18, 0.9) 100%),
-    url('https://picsum.photos/seed/deploypipeline/1920/1080');
+    linear-gradient(180deg, rgba(23, 21, 18, 0.1) 0%, rgba(23, 21, 18, 0.9) 100%);
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -296,7 +295,10 @@ onMounted(() => {
     <p v-if="message" role="alert">{{ message }}</p>
     <p v-if="loading">Processing...</p>
     <template v-if="post">
-      <header class="post-cover">
+      <header class="post-cover" :style="{
+        backgroundImage: `linear-gradient(180deg, rgba(23, 21, 18, 0.1) 0%, rgba(23, 21, 18, 0.9) 100%),
+                        url('${post.coverImg || ''}')`
+      }">
         <div class="post-cover-inner">
           <span class="tag" :class="post.categoryColor">{{ (post.category ?? '').toUpperCase() }}</span>
           <h1 class="display">{{ post.title }}</h1>
@@ -312,7 +314,7 @@ onMounted(() => {
       <article class="post-body" v-html="post.contentHtml"></article>
 
       <div class="author-box">
-        <div class="author-photo"><img src="https://picsum.photos/seed/team2/200/200" alt="Photo of "></div>
+        <div class="author-photo"><img src="/img/bmov-cover-default.jpg" alt="Photo"></div>
         <div>
           <p class="author-name">{{ post.author.name }}</p>
         </div>

@@ -150,8 +150,7 @@ onMounted(() => {
   color: #fff;
   min-height: 56vh;
   background-image:
-    linear-gradient(180deg, rgba(23, 21, 18, 0.15) 0%, rgba(23, 21, 18, 0.85) 100%),
-    url('https://picsum.photos/seed/featuredpost/1600/900');
+    linear-gradient(180deg, rgba(23, 21, 18, 0.15) 0%, rgba(23, 21, 18, 0.85) 100%);
   background-size: cover;
   background-position: center;
   display: flex;
@@ -375,7 +374,11 @@ onMounted(() => {
     </div>
   </header>
   <NuxtLink class="featured"
-    :to="{ name: 'blog-idslug', params: { idslug: `${featuredPost.id}-${featuredPost.slug}` } }" v-if="featuredPost">
+    :to="{ name: 'blog-idslug', params: { idslug: `${featuredPost.id}-${featuredPost.slug}` } }" v-if="featuredPost"
+    :style="{
+      backgroundImage: `linear-gradient(180deg, rgba(23, 21, 18, 0.15) 0%, rgba(23, 21, 18, 0.85) 100%),
+                        url('${featuredPost.coverImg || '/img/bmov-cover-default.jpg'}')`
+    }">
     <div class="featured-body">
       <span class="tag" :class="featuredPost.categoryColor">{{ (featuredPost.category ?? '').toUpperCase() }}</span>
       <h2 class="display">{{ featuredPost.title }}</h2>
@@ -390,13 +393,15 @@ onMounted(() => {
 
       <NuxtLink class="post-card" :to="{ name: 'blog-idslug', params: { idslug: `${post.id}-${post.slug}` } }"
         data-reveal v-for="post in slicedResult" :key="post.id">
-        <div class="post-thumb"><img src="https://picsum.photos/seed/post1/600/450" alt=""></div>
+        <div class="post-thumb"><img :src="post.coverImg || '/img/bmov-cover-default.jpg'" alt=""></div>
         <span class="tag" :class="post.categoryColor">{{ (post.category ?? '').toUpperCase() }}</span>
         <h3>{{ post.title }}</h3>
         <p class="excerpt">{{ post.summary }}</p>
         <p class="meta">{{ post.author.name }} · {{ formatRelativeTime(post.createdAt) }} · {{ post.readTime }} min read
         </p>
       </NuxtLink>
+
+      <p v-if="!allPosts">No post</p>
 
     </div>
     <div class="load-more" v-if="hasMore && slicedResult">
