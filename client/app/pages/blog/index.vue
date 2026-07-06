@@ -328,6 +328,11 @@ onMounted(() => {
   cursor: default;
 }
 
+.no-post {
+  padding: 3rem 0;
+  text-align: center;
+}
+
 @media (max-width:720px) {
   .blog-hero {
     padding: 16vh 1.5rem 6vh;
@@ -389,8 +394,8 @@ onMounted(() => {
   </NuxtLink>
 
   <section class="blog-grid-sec">
+    <p class="no-post" v-if="posts.length === 0">No post</p>
     <div class="blog-grid">
-
       <NuxtLink class="post-card" :to="{ name: 'blog-idslug', params: { idslug: `${post.id}-${post.slug}` } }"
         data-reveal v-for="post in slicedResult" :key="post.id">
         <div class="post-thumb"><img :src="post.coverImg || '/img/bmov-cover-default.jpg'" alt=""></div>
@@ -400,9 +405,6 @@ onMounted(() => {
         <p class="meta">{{ post.author.name }} · {{ formatRelativeTime(post.createdAt) }} · {{ post.readTime }} min read
         </p>
       </NuxtLink>
-
-      <p v-if="!allPosts">No post</p>
-
     </div>
     <div class="load-more" v-if="hasMore && slicedResult">
       <button type="button" :disabled="loadingMore" @click="loadMore">
