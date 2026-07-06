@@ -5,3 +5,7 @@ dist
 .git
 .pnpm-store
 coverage
+client/node_modules
+client/.nuxt
+client/.output
+client/dist

@@ -1,6 +1,4 @@
-# Simple Web Notepad
-
-A web notepad application built with Express.js + MySQL 8.x and Vue 3 frontend.
+# bmov.co
 
 ## Running the Project
 
@@ -19,22 +17,16 @@ pnpm dev
 **Frontend Development Server:**
 
 ```bash
-pnpm client:dev
+pnpm nuxt:dev
 ```
 
-The Vue development server runs at `http://127.0.0.1:5173`, and `/api` requests are proxied to the backend at `http://127.0.0.1:3000`.
+The Nuxt development server runs at `http://127.0.0.1:5173`, and `/api` requests are proxied to the backend at `http://127.0.0.1:3000`.
 
 ---
 
 ## Deployment with Docker Compose
 
-```bash
-docker compose up --build
-```
-
-The application will run at `http://127.0.0.1:3000`. Before deploying to production, make sure to change the `JWT_SECRET`, database passwords, and `ADMIN_EMAILS` in `docker-compose.yml`.
-
-The default address is `http://127.0.0.1:3000`. If needed, you can modify `HOST` and `PORT` in the `.env` file.
+TODO
 
 ---
 

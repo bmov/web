@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/server.js",
+    "client:build": "nuxt build --cwd ./client",
     "nuxt:build": "nuxt build --cwd ./client",
     "nuxt:dev": "nuxt dev --cwd ./client",
     "nuxt:generate": "nuxt generate --cwd ./client",
