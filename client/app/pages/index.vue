@@ -1,5 +1,48 @@
 <script setup>
 import { scrollEvent } from '~/ui/navbar';
+import { sendContactMessage } from '~/services/contact';
+
+const form = reactive({
+  name: '',
+  email: '',
+  message: '',
+});
+
+const isSubmitting = ref(false);
+const formError = ref('');
+const formSuccess = ref('');
+
+const resetFeedback = () => {
+  formError.value = '';
+  formSuccess.value = '';
+};
+
+const handleSubmitContact = async () => {
+  resetFeedback();
+
+  if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+    formError.value = 'Please fill in all required fields.';
+    return;
+  }
+
+  isSubmitting.value = true;
+  try {
+    const { message } = await sendContactMessage({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    });
+
+    formSuccess.value = message ?? 'Your message has been sent successfully.';
+    form.name = '';
+    form.email = '';
+    form.message = '';
+  } catch (error) {
+    formError.value = error?.message ?? 'Failed to send message. Please try again.';
+  } finally {
+    isSubmitting.value = false;
+  }
+};
 
 useSeoMeta({
   title: ``,
@@ -80,20 +123,24 @@ onMounted(() => {
         <h2 class="display">Contact Us</h2>
         <p class="contact-intro">Have a message for us? Leave it here, and we'll get back to you soon.</p>
       </div>
-      <form class="contact-form" onsubmit="return false;">
+      <form class="contact-form" @submit.prevent="handleSubmitContact">
         <div class="form-row">
           <label for="cf-name">Name</label>
-          <input id="cf-name" type="text" placeholder="Your name" required>
+          <input id="cf-name" v-model="form.name" type="text" placeholder="Your name" required>
         </div>
         <div class="form-row">
           <label for="cf-email">Email</label>
-          <input id="cf-email" type="email" placeholder="you@company.com" required>
+          <input id="cf-email" v-model="form.email" type="email" placeholder="you@company.com" required>
         </div>
         <div class="form-row">
           <label for="cf-message">Message</label>
-          <textarea id="cf-message" rows="4" placeholder="Message" required></textarea>
+          <textarea id="cf-message" v-model="form.message" rows="4" placeholder="Message" required></textarea>
         </div>
-        <button class="contact-submit" type="submit">Send Message</button>
+        <p v-if="formError" class="form-feedback form-feedback-error">{{ formError }}</p>
+        <p v-if="formSuccess" class="form-feedback form-feedback-success">{{ formSuccess }}</p>
+        <button class="contact-submit" type="submit" :disabled="isSubmitting">
+          {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+        </button>
       </form>
     </div>
   </section>
@@ -450,6 +497,25 @@ a.link:hover::after {
   letter-spacing: 0.06em;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.contact-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-feedback {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.form-feedback-error {
+  color: #ff9b9b;
+}
+
+.form-feedback-success {
+  color: #8de7b6;
 }
 
 .contact-submit:hover {

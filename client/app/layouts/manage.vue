@@ -54,6 +54,7 @@ a {
       <NuxtLink to="/manage"><strong>Manage Console</strong></NuxtLink>
       <NuxtLink v-if="auth.isLoggedIn.value" to="/manage/posts">list</NuxtLink>
       <NuxtLink v-if="auth.isLoggedIn.value" to="/manage/posts/new">write</NuxtLink>
+      <NuxtLink v-if="auth.isLoggedIn.value" to="/manage/contact">contact</NuxtLink>
       <NuxtLink v-if="!auth.isLoggedIn.value" to="/manage/login">login</NuxtLink>
       <NuxtLink v-if="!auth.isLoggedIn.value" to="/manage/signup">signup</NuxtLink>
       <span v-if="auth.state.user">{{ auth.state.user.name }}</span>

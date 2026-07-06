@@ -43,6 +43,8 @@ If you have already created the existing schema, run the additional migrations:
 ```bash
 mysql -u root -p notepad < sql/migrations/001_add_posts_content_html.sql
 mysql -u root -p notepad < sql/migrations/002_add_posts_is_pinned.sql
+mysql -u root -p notepad < sql/migrations/003_add_posts_metadata.sql
+mysql -u root -p notepad < sql/migrations/004_add_contact_messages.sql
 ```
 
 ---
@@ -147,3 +149,15 @@ Pinned posts are displayed at the top of the post list.
 > Restricted to the author or an administrator.
 
 `DELETE /api/posts/:id`
+
+### Send Contact Message
+
+`POST /api/contact`
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "message": "Hello, I want to discuss a project."
+}
+```
