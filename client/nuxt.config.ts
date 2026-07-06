@@ -11,7 +11,7 @@ export default defineNuxtConfig({
       meta: [
         { property: 'og:image', content: 'https://bmov.co/img/bmov-cover-default.jpg' },
         { property: 'twitter:image', content: 'https://bmov.co/img/bmov-cover-default.jpg' },
-      ]
+      ],
     },
   },
   nitro: {
@@ -24,7 +24,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000'
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000',
+      capEndpoint: process.env.NUXT_PUBLIC_CAP_ENDPOINT || 'https://cap.bmov.co',
+      capSiteKey: process.env.NUXT_PUBLIC_CAP_SITE_KEY || '1234567890',
     }
   },
   vite: {

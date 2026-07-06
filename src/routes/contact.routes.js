@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { pool } from '../config/db.js';
+import { env } from '../config/env.js';
 import { requireAuth } from '../middleware/auth.js';
 
 const router = Router();
@@ -14,6 +15,7 @@ const createContactSchema = z.object({
     .max(255)
     .transform((value) => value.toLowerCase()),
   message: z.string().trim().min(1).max(2000),
+  capToken: z.string().trim().min(1).max(255),
 });
 
 const listContactQuerySchema = z.object({
@@ -43,6 +45,24 @@ const ensureAdmin = (req, res) => {
 router.post('/', async (req, res, next) => {
   try {
     const body = createContactSchema.parse(req.body);
+
+    console.log(body.capToken);
+
+    const { success } = await (
+      await fetch(`${env.cap.endpoint}/${env.cap.siteKey}/siteverify`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          secret: env.cap.secret,
+          response: body.capToken,
+        }),
+      })
+    ).json();
+
+    if (!success)
+      return res.status(403).json({
+        message: 'Invalid cap token.',
+      });
 
     await pool.execute(
       `

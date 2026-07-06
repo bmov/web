@@ -26,6 +26,7 @@
   "dependencies": {
     "@bbob/html": "^4.3.1",
     "@bbob/preset-html5": "^4.3.1",
+    "@cap.js/widget": "^0.1.56",
     "@nuxtjs/seo": "^5.3.2",
     "@nuxtjs/sitemap": "^8.2.2",
     "@tabler/icons-vue": "^3.44.0",

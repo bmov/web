@@ -40,4 +40,9 @@ export const env = {
   },
   adminEmails: parseAdminEmails(process.env.ADMIN_EMAILS),
   signupEnabled: parseBoolean(process.env.SIGNUP_ENABLED, true),
+  cap: {
+    endpoint: process.env.CAP_ENDPOINT,
+    siteKey: process.env.CAP_SITE_KEY,
+    secret: process.env.CAP_SECRET,
+  },
 };

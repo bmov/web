@@ -1,6 +1,9 @@
 <script setup>
+import "@cap.js/widget";
 import { scrollEvent } from '~/ui/navbar';
 import { sendContactMessage } from '~/services/contact';
+
+const config = useRuntimeConfig();
 
 const form = reactive({
   name: '',
@@ -11,10 +14,21 @@ const form = reactive({
 const isSubmitting = ref(false);
 const formError = ref('');
 const formSuccess = ref('');
+const capToken = ref('');
 
 const resetFeedback = () => {
   formError.value = '';
   formSuccess.value = '';
+};
+
+const handleSolve = (e) => {
+  console.log("CAPTCHA Token:", e.detail.token);
+  capToken.value = e.detail.token;
+};
+
+const handleError = (e) => {
+  formError.value = 'CAPTCHA error';
+  return;
 };
 
 const handleSubmitContact = async () => {
@@ -31,6 +45,7 @@ const handleSubmitContact = async () => {
       name: form.name.trim(),
       email: form.email.trim(),
       message: form.message.trim(),
+      capToken: capToken.value,
     });
 
     formSuccess.value = message ?? 'Your message has been sent successfully.';
@@ -135,6 +150,11 @@ onMounted(() => {
         <div class="form-row">
           <label for="cf-message">Message</label>
           <textarea id="cf-message" v-model="form.message" rows="4" placeholder="Message" required></textarea>
+        </div>
+        <div class="form-row">
+          <cap-widget :data-cap-api-endpoint="`${config.public.capEndpoint}/${config.public.capSiteKey}/`"
+            @solve="handleSolve" @error="handleError">
+          </cap-widget>
         </div>
         <p v-if="formError" class="form-feedback form-feedback-error">{{ formError }}</p>
         <p v-if="formSuccess" class="form-feedback form-feedback-success">{{ formSuccess }}</p>
