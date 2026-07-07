@@ -17,6 +17,8 @@ services:
       ADMIN_EMAILS: admin@example.com
       SIGNUP_ENABLED: "true"
       NUXT_PUBLIC_API_BASE: http://localhost:3000
+    volumes:
+      - ./uploads:/app/uploads
     depends_on:
       db:
         condition: service_healthy
