@@ -285,7 +285,7 @@ onMounted(() => {
   }
 
   .author-box {
-    padding: 0 1.5rem 6vh;
+    padding: 1.5rem 1.5rem 6vh;
   }
 }
 </style>
