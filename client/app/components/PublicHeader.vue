@@ -25,6 +25,7 @@ onMounted(() => {
   const menu = document.querySelector(".fullscreen-menu");
   const openBtn = document.querySelector(".menu-btn");
   const closeBtn = menu.querySelector(".close-btn");
+  const menuLinks = document.querySelectorAll('.fullscreen-menu a');
 
   openBtn.addEventListener("click", () => {
     menu.classList.add("active");
@@ -34,6 +35,12 @@ onMounted(() => {
   closeBtn.addEventListener("click", () => {
     menu.classList.remove("active");
     openBtn.focus();
+  });
+
+  menuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('active');
+    });
   });
 
 });
@@ -125,16 +132,13 @@ nav .menu a.is-active::after {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
-
+  height: -webkit-fill-available;
+  height: 100dvh;
   background: rgba(0, 0, 0, 0.95);
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   z-index: 9999;
-
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease;
@@ -242,7 +246,7 @@ nav .menu a.is-active::after {
           <span class="sr-only">Open menu</span>
           <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
             fill="none">
-            <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M3 6H21M3 12H21M3 18H21" stroke="#000" stroke-width="2" stroke-linecap="round" />
           </svg>
         </button>
       </div>

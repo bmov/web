@@ -10,7 +10,7 @@
     "nuxt:build": "nuxt build --cwd ./client",
     "nuxt:dev": "nuxt dev --cwd ./client",
     "nuxt:generate": "nuxt generate --cwd ./client",
-    "nuxt:preview": "nuxt preview --cwd ./client",
+    "nuxt:preview": "nuxt preview --cwd ./client --port 5000",
     "nuxt:postinstall": "nuxt prepare --cwd ./client",
     "start": "node src/server.js",
     "lint": "node --check src/server.js && node --check src/app.js && node --check src/config/env.js && node --check src/config/db.js && node --check src/middleware/auth.js && node --check src/middleware/errorHandler.js && node --check src/utils/renderBbcode.js && node --check src/routes/auth.routes.js && node --check src/routes/posts.routes.js && node --check src/routes/contact.routes.js && node --check src/routes/images.routes.js"

@@ -11,6 +11,7 @@ export default defineNuxtConfig({
       meta: [
         { property: 'og:image', content: 'https://bmov.co/img/bmov-cover-default.jpg' },
         { property: 'twitter:image', content: 'https://bmov.co/img/bmov-cover-default.jpg' },
+        { name: 'theme-color', content: '#eaeae9' }
       ],
     },
   },
