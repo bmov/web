@@ -1,7 +1,7 @@
 {
-  "name": "web-notepad",
+  "name": "bmov-web",
   "version": "1.0.0",
-  "description": "Simple web notepad with Express.js, MySQL 8.x and Vue 3 frontend",
+  "description": "BMOV Website",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
