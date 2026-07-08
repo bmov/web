@@ -5,6 +5,7 @@
 ```bash
 pnpm install
 cp .env.example .env
+cp client/.env.example client/.env
 pnpm start
 ```
 
@@ -26,7 +27,9 @@ The Nuxt development server runs at `http://127.0.0.1:5173`, and `/api` requests
 
 ## Deployment with Docker Compose
 
-TODO
+```bash
+docker compose up --build -d
+```
 
 ---
 
@@ -63,6 +66,8 @@ Endpoints that require authentication expect the `Authorization: Bearer <token>`
 
 ### Sign Up
 
+> Restricted to the logged account.
+
 `POST /api/auth/signup`
 
 ```json
@@ -93,15 +98,13 @@ Endpoints that require authentication expect the `Authorization: Bearer <token>`
 ```json
 {
   "title": "First Post",
-  "content": "This is the [b]content[/b]."
+  "content": "This is the **content**."
 }
 ```
 
-> **Note:** The post body is saved and returned with both the raw BBCode (`content`) and the rendered HTML (`contentHtml`). The rendered HTML is sanitized to keep only allowed tags and attributes before saving.
+> **Note:** The post body is saved and returned with both the raw Markdown (`content`) and the rendered HTML (`contentHtml`). The rendered HTML is sanitized to keep only allowed tags and attributes before saving.
 
 ### Get Post List
-
-> Restricted to the logged account.
 
 `GET /api/posts`
 
@@ -112,8 +115,6 @@ GET /api/posts?offset=0&limit=20
 ```
 
 ### Get a Single Post
-
-> Restricted to the logged account.
 
 `GET /api/posts/:id`
 
@@ -161,6 +162,24 @@ Pinned posts are displayed at the top of the post list.
   "message": "Hello, I want to discuss a project."
 }
 ```
+
+### Get Contact Message List
+
+> Restricted to the administrator.
+
+`GET /api/contact`
+
+Supports pagination using `offset` and `limit` query parameters. The maximum value for `limit` is `100`.
+
+```bash
+GET /api/contact?offset=0&limit=20
+```
+
+### Get a Single Contact Message
+
+> Restricted to the administrator.
+
+`POST /api/contact/:id`
 
 ### Upload Image (Admin Only)
 
