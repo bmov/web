@@ -204,7 +204,7 @@ router.post('/', requireAuth, async (req, res, next) => {
   try {
     const body = createPostSchema.parse(req.body);
     const contentHtml = renderMarkdown(body.content);
-    const slug = body.slug ?? slugify(body.title);
+    const slug = body.slug?.toLowerCase() ?? slugify(body.title).toLowerCase();
 
     const [result] = await pool.execute(
       `
@@ -238,7 +238,7 @@ router.patch('/:id', requireAuth, async (req, res, next) => {
     const id = z.coerce.number().int().positive().parse(req.params.id);
     const body = updatePostSchema.parse(req.body);
     const post = await findPostById(id);
-    const slug = body.slug ?? post.slug;
+    const slug = body.slug?.toLowerCase() ?? post.slug?.toLowerCase();
 
     if (!post) {
       return res.status(404).json({ message: 'Post not found.' });
